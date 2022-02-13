@@ -17,7 +17,7 @@ func (conn *Conn) Read(p []byte) (int, error) { return conn.reader.Read(p) }
 
 func NewConn(conn net.Conn) (*Conn, error) {
 	peekedBytes := new(bytes.Buffer)
-	clientHello, err := ReadHandshakeMessage(io.TeeReader(conn, peekedBytes))
+	clientHello, err := NewHandshakeReader(io.TeeReader(conn, peekedBytes)).ReadMessage()
 	if err != nil {
 		return nil, err
 	}

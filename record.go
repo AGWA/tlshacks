@@ -20,12 +20,16 @@ func readRecordHeader(reader io.Reader) (recordHeader, error) {
 	}, nil
 }
 
-type handshakeReader struct {
+type HandshakeReader struct {
 	reader         io.Reader
 	bytesRemaining int
 }
 
-func (r *handshakeReader) Read(p []byte) (int, error) {
+func NewHandshakeReader(reader io.Reader) *HandshakeReader {
+	return &HandshakeReader{reader: reader}
+}
+
+func (r *HandshakeReader) Read(p []byte) (int, error) {
 	for r.bytesRemaining == 0 {
 		header, err := readRecordHeader(r.reader)
 		if err != nil {
@@ -47,9 +51,7 @@ func (r *handshakeReader) Read(p []byte) (int, error) {
 	return bytesRead, err
 }
 
-func ReadHandshakeMessage(reader io.Reader) ([]byte, error) {
-	reader = &handshakeReader{reader: reader}
-
+func (reader *HandshakeReader) ReadMessage() ([]byte, error) {
 	var header [4]byte
 	if _, err := io.ReadFull(reader, header[:]); err != nil {
 		return nil, err
