@@ -1,8 +1,6 @@
 package tlshacks
 
 import (
-	"io"
-
 	"golang.org/x/crypto/cryptobyte"
 )
 
@@ -11,24 +9,9 @@ type ClientHelloInfo struct {
 	SCTs       bool
 }
 
-func UnmarshalClientHello(recordBytes []byte) *ClientHelloInfo {
+func UnmarshalClientHello(handshakeBytes []byte) *ClientHelloInfo {
 	info := new(ClientHelloInfo)
-	record := cryptobyte.String(recordBytes)
-
-	var contentType uint8
-	if !record.ReadUint8(&contentType) || contentType != 22 {
-		return nil
-	}
-
-	// legacy_record_version
-	if !record.Skip(2) {
-		return nil
-	}
-
-	var handshakeMessage cryptobyte.String
-	if !record.ReadUint16LengthPrefixed(&handshakeMessage) || !record.Empty() {
-		return nil
-	}
+	handshakeMessage := cryptobyte.String(handshakeBytes)
 
 	var messageType uint8
 	if !handshakeMessage.ReadUint8(&messageType) || messageType != 1 {
@@ -123,18 +106,4 @@ func UnmarshalClientHello(recordBytes []byte) *ClientHelloInfo {
 	}
 
 	return info
-}
-
-func ReadTLSRecord(reader io.Reader) ([]byte, error) {
-	var header [5]byte
-	if _, err := io.ReadFull(reader, header[:]); err != nil {
-		return nil, err
-	}
-	length := (uint16(header[3]) << 8) | uint16(header[4])
-	packet := make([]byte, len(header)+int(length))
-	copy(packet, header[:])
-	if _, err := io.ReadFull(reader, packet[len(header):]); err != nil {
-		return nil, err
-	}
-	return packet, nil
 }
