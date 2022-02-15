@@ -26,7 +26,9 @@ func handler(w http.ResponseWriter, req *http.Request) {
 	log.Printf("%s %q %#v", req.RemoteAddr, req.Header.Get("User-Agent"), info)
 
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(info)
+	encoder := json.NewEncoder(w)
+	encoder.SetIndent("", "    ")
+	encoder.Encode(info)
 }
 
 func main() {
