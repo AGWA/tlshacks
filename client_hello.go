@@ -2,15 +2,53 @@ package tlshacks
 
 import (
 	"golang.org/x/crypto/cryptobyte"
+	"encoding/json"
 )
 
+type ProtocolVersion uint16
+
+func (v ProtocolVersion) Hi() uint8 {
+	return uint8(v >> 8)
+}
+
+func (v ProtocolVersion) Lo() uint8 {
+	return uint8(v)
+}
+
+func (v ProtocolVersion) MarshalJSON() ([]byte, error) {
+	return json.Marshal([2]uint8{v.Hi(), v.Lo()})
+}
+
+type CompressionMethod uint8
+
+func (m CompressionMethod) MarshalJSON() ([]byte, error) {
+	return json.Marshal(uint16(m))
+	/*
+	return json.Marshal(map[string]interface{}{
+		"code": uint16(m),
+	})
+	*/
+}
+
 type ClientHelloInfo struct {
-	ServerName string
-	SCTs       bool
+	Raw []byte `json:"raw"`
+
+	Version            ProtocolVersion      `json:"version"`
+	Random             []byte      `json:"random"`
+	SessionID          []byte      `json:"session_id"`
+	CipherSuites       []CipherSuite      `json:"cipher_suites"`
+	CompressionMethods []CompressionMethod      `json:"compression_methods"`
+	Extensions         []Extension `json:"extensions"`
+
+	Info struct{
+		ServerName *string      `json:"server_name"`
+		SCTs       bool      `json:"scts"`
+		Protocols  []string  `json:"protocols"`
+	} `json:"info"`
 }
 
 func UnmarshalClientHello(handshakeBytes []byte) *ClientHelloInfo {
-	info := new(ClientHelloInfo)
+	info := &ClientHelloInfo{Raw: handshakeBytes}
 	handshakeMessage := cryptobyte.String(handshakeBytes)
 
 	var messageType uint8
@@ -23,18 +61,15 @@ func UnmarshalClientHello(handshakeBytes []byte) *ClientHelloInfo {
 		return nil
 	}
 
-	// legacy_version
-	if !clientHello.Skip(2) {
+	if !clientHello.ReadUint16((*uint16)(&info.Version)) {
 		return nil
 	}
 
-	// random
-	if !clientHello.Skip(32) {
+	if !clientHello.ReadBytes(&info.Random, 32) {
 		return nil
 	}
 
-	var sessionID cryptobyte.String
-	if !clientHello.ReadUint8LengthPrefixed(&sessionID) {
+	if !clientHello.ReadUint8LengthPrefixed((*cryptobyte.String)(&info.SessionID)) {
 		return nil
 	}
 
@@ -42,16 +77,33 @@ func UnmarshalClientHello(handshakeBytes []byte) *ClientHelloInfo {
 	if !clientHello.ReadUint16LengthPrefixed(&cipherSuites) {
 		return nil
 	}
+	info.CipherSuites = []CipherSuite{}
+	for !cipherSuites.Empty() {
+		var suite uint16
+		if !cipherSuites.ReadUint16(&suite) {
+			return nil
+		}
+		info.CipherSuites = append(info.CipherSuites, MakeCipherSuite(suite))
+	}
 
-	var legacyCompressionMethods cryptobyte.String
-	if !clientHello.ReadUint8LengthPrefixed(&legacyCompressionMethods) {
+	var compressionMethods cryptobyte.String
+	if !clientHello.ReadUint8LengthPrefixed(&compressionMethods) {
 		return nil
 	}
+	info.CompressionMethods = []CompressionMethod{}
+	for !compressionMethods.Empty() {
+		var method uint8
+		if !compressionMethods.ReadUint8(&method) {
+			return nil
+		}
+		info.CompressionMethods = append(info.CompressionMethods, CompressionMethod(method))
+	}
+
+	info.Extensions = []Extension{}
 
 	if clientHello.Empty() {
 		return info
 	}
-
 	var extensions cryptobyte.String
 	if !clientHello.ReadUint16LengthPrefixed(&extensions) {
 		return nil
@@ -63,40 +115,25 @@ func UnmarshalClientHello(handshakeBytes []byte) *ClientHelloInfo {
 			return nil
 		}
 
+		parseData := extensionParsers[extType]
+		if parseData == nil {
+			parseData = ParseUnknownExtensionData
+		}
+		data := parseData(extData)
+
+		info.Extensions = append(info.Extensions, Extension{
+			Type: extType,
+			Name: Extensions[extType],
+			Data: data,
+		})
+
 		switch extType {
 		case 0:
-			// server_name - RFC 6066, Section 3
-			var nameList cryptobyte.String
-			if !extData.ReadUint16LengthPrefixed(&nameList) || nameList.Empty() {
-				return nil
-			}
-			for !nameList.Empty() {
-				var nameType uint8
-				if !nameList.ReadUint8(&nameType) {
-					return nil
-				}
-				var nameData cryptobyte.String
-				if !nameList.ReadUint16LengthPrefixed(&nameData) || nameData.Empty() {
-					return nil
-				}
-				switch nameType {
-				case 0:
-					// host_name
-					if info.ServerName != "" {
-						return nil
-					}
-					info.ServerName = string(nameData)
-				}
-			}
-			if !extData.Empty() {
-				return nil
-			}
+			info.Info.ServerName = &data.(*ServerNameData).HostName
+		case 16:
+			info.Info.Protocols = data.(*ALPNData).Protocols
 		case 18:
-			// signed_certificate_timestamp - RFC 6962, Section 3.3.1
-			info.SCTs = true
-			if !extData.Empty() {
-				return nil
-			}
+			info.Info.SCTs = true
 		}
 
 	}
