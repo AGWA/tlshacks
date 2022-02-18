@@ -122,9 +122,11 @@ func UnmarshalClientHello(handshakeBytes []byte) *ClientHelloInfo {
 		data := parseData(extData)
 
 		info.Extensions = append(info.Extensions, Extension{
-			Type: extType,
-			Name: Extensions[extType],
-			Data: data,
+			Type:    extType,
+			Name:    Extensions[extType].Name,
+			Grease:  Extensions[extType].Grease,
+			Private: Extensions[extType].Private,
+			Data:    data,
 		})
 
 		switch extType {

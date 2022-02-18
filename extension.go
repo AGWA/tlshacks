@@ -7,9 +7,11 @@ import (
 type ExtensionData interface{}
 
 type Extension struct {
-	Type uint16 `json:"type"`
-	Name string `json:"name,omitempty"`
-	Data ExtensionData `json:"data"`
+	Type    uint16        `json:"type"`
+	Name    string        `json:"name,omitempty"`
+	Grease  bool          `json:"grease,omitempty"`
+	Private bool          `json:"private,omitempty"`
+	Data    ExtensionData `json:"data"`
 }
 
 type UnknownExtensionData struct {

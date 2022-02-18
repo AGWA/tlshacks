@@ -27,6 +27,14 @@ package tlshacks
 var Extensions = %#v
 `
 
+type ExtensionInfo = struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}
+
 func main() {
 	client := &http.Client{Timeout: 1 * time.Minute}
 	resp, err := client.Get(sourceURL)
@@ -45,7 +53,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	extensions := make(map[uint16]string)
+	extensions := make(map[uint16]ExtensionInfo)
 
 	for {
 		row, err := reader.Read()
@@ -58,18 +66,51 @@ func main() {
 		var (
 			valueString = row[0]
 			name        = row[1]
+			reference   = row[5]
 		)
-		if strings.Contains(name, "Reserved") || strings.Contains(name, "Unassigned") {
+		if name == "Unassigned" {
 			continue
 		}
 		if index := strings.Index(name, " (renamed from"); index != -1 {
 			name = name[:index]
 		}
-		value, err := strconv.ParseUint(valueString, 0, 16)
-		if err != nil {
-			log.Fatal(err)
+		var (
+			firstValue uint64
+			lastValue  uint64
+		)
+		if valueFields := strings.SplitN(valueString, "-", 2); len(valueFields) == 2 {
+			firstValue, err = strconv.ParseUint(valueFields[0], 0, 16)
+			if err != nil {
+				log.Fatal(err)
+			}
+			lastValue, err = strconv.ParseUint(valueFields[1], 0, 16)
+			if err != nil {
+				log.Fatal(err)
+			}
+		} else {
+			firstValue, err = strconv.ParseUint(valueString, 0, 16)
+			if err != nil {
+				log.Fatal(err)
+			}
+			lastValue = firstValue
 		}
-		extensions[uint16(value)] = name
+
+		var info ExtensionInfo
+		if name == "Reserved" && reference == "[RFC8701]" {
+			info.Reserved = true
+			info.Grease = true
+		} else if name == "Reserved for Private Use" {
+			info.Reserved = true
+			info.Private = true
+		} else if name == "Reserved" {
+			info.Reserved = true
+		} else {
+			info.Name = name
+		}
+		info.Reference = reference
+		for value := firstValue; value <= lastValue; value++ {
+			extensions[uint16(value)] = info
+		}
 	}
 
 	if err := os.WriteFile(outputFilename, []byte(fmt.Sprintf(outputFormat, extensions)), 0666); err != nil {

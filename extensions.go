@@ -2,4 +2,2002 @@
 
 package tlshacks
 
-var Extensions = map[uint16]string{0x0:"server_name", 0x1:"max_fragment_length", 0x2:"client_certificate_url", 0x3:"trusted_ca_keys", 0x4:"truncated_hmac", 0x5:"status_request", 0x6:"user_mapping", 0x7:"client_authz", 0x8:"server_authz", 0x9:"cert_type", 0xa:"supported_groups", 0xb:"ec_point_formats", 0xc:"srp", 0xd:"signature_algorithms", 0xe:"use_srtp", 0xf:"heartbeat", 0x10:"application_layer_protocol_negotiation", 0x11:"status_request_v2", 0x12:"signed_certificate_timestamp", 0x13:"client_certificate_type", 0x14:"server_certificate_type", 0x15:"padding", 0x16:"encrypt_then_mac", 0x17:"extended_master_secret", 0x18:"token_binding", 0x19:"cached_info", 0x1a:"tls_lts", 0x1b:"compress_certificate", 0x1c:"record_size_limit", 0x1d:"pwd_protect", 0x1e:"pwd_clear", 0x1f:"password_salt", 0x20:"ticket_pinning", 0x21:"tls_cert_with_extern_psk", 0x22:"delegated_credentials", 0x23:"session_ticket", 0x24:"TLMSP", 0x25:"TLMSP_proxying", 0x26:"TLMSP_delegate", 0x27:"supported_ekt_ciphers", 0x29:"pre_shared_key", 0x2a:"early_data", 0x2b:"supported_versions", 0x2c:"cookie", 0x2d:"psk_key_exchange_modes", 0x2f:"certificate_authorities", 0x30:"oid_filters", 0x31:"post_handshake_auth", 0x32:"signature_algorithms_cert", 0x33:"key_share", 0x34:"transparency_info", 0x35:"connection_id (deprecated)", 0x36:"connection_id", 0x37:"external_id_hash", 0x38:"external_session_id", 0x39:"quic_transport_parameters", 0x3a:"ticket_request", 0x3b:"dnssec_chain", 0xff01:"renegotiation_info"}
+var Extensions = map[uint16]struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{0x0: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "server_name", Reserved: false, Grease: false, Private: false, Reference: "[RFC6066]"}, 0x1: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "max_fragment_length", Reserved: false, Grease: false, Private: false, Reference: "[RFC6066][RFC8449]"}, 0x2: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "client_certificate_url", Reserved: false, Grease: false, Private: false, Reference: "[RFC6066]"}, 0x3: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "trusted_ca_keys", Reserved: false, Grease: false, Private: false, Reference: "[RFC6066]"}, 0x4: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "truncated_hmac", Reserved: false, Grease: false, Private: false, Reference: "[RFC6066][IESG Action 2018-08-16]"}, 0x5: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "status_request", Reserved: false, Grease: false, Private: false, Reference: "[RFC6066]"}, 0x6: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "user_mapping", Reserved: false, Grease: false, Private: false, Reference: "[RFC4681]"}, 0x7: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "client_authz", Reserved: false, Grease: false, Private: false, Reference: "[RFC5878]"}, 0x8: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "server_authz", Reserved: false, Grease: false, Private: false, Reference: "[RFC5878]"}, 0x9: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "cert_type", Reserved: false, Grease: false, Private: false, Reference: "[RFC6091]"}, 0xa: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "supported_groups", Reserved: false, Grease: false, Private: false, Reference: "[RFC8422][RFC7919]"}, 0xb: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "ec_point_formats", Reserved: false, Grease: false, Private: false, Reference: "[RFC8422]"}, 0xc: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "srp", Reserved: false, Grease: false, Private: false, Reference: "[RFC5054]"}, 0xd: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "signature_algorithms", Reserved: false, Grease: false, Private: false, Reference: "[RFC8446]"}, 0xe: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "use_srtp", Reserved: false, Grease: false, Private: false, Reference: "[RFC5764]"}, 0xf: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "heartbeat", Reserved: false, Grease: false, Private: false, Reference: "[RFC6520]"}, 0x10: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "application_layer_protocol_negotiation", Reserved: false, Grease: false, Private: false, Reference: "[RFC7301]"}, 0x11: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "status_request_v2", Reserved: false, Grease: false, Private: false, Reference: "[RFC6961]"}, 0x12: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "signed_certificate_timestamp", Reserved: false, Grease: false, Private: false, Reference: "[RFC6962]"}, 0x13: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "client_certificate_type", Reserved: false, Grease: false, Private: false, Reference: "[RFC7250]"}, 0x14: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "server_certificate_type", Reserved: false, Grease: false, Private: false, Reference: "[RFC7250]"}, 0x15: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "padding", Reserved: false, Grease: false, Private: false, Reference: "[RFC7685]"}, 0x16: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "encrypt_then_mac", Reserved: false, Grease: false, Private: false, Reference: "[RFC7366]"}, 0x17: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "extended_master_secret", Reserved: false, Grease: false, Private: false, Reference: "[RFC7627]"}, 0x18: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "token_binding", Reserved: false, Grease: false, Private: false, Reference: "[RFC8472]"}, 0x19: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "cached_info", Reserved: false, Grease: false, Private: false, Reference: "[RFC7924]"}, 0x1a: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "tls_lts", Reserved: false, Grease: false, Private: false, Reference: "[draft-gutmann-tls-lts]"}, 0x1b: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "compress_certificate", Reserved: false, Grease: false, Private: false, Reference: "[RFC8879]"}, 0x1c: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "record_size_limit", Reserved: false, Grease: false, Private: false, Reference: "[RFC8449]"}, 0x1d: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "pwd_protect", Reserved: false, Grease: false, Private: false, Reference: "[RFC8492]"}, 0x1e: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "pwd_clear", Reserved: false, Grease: false, Private: false, Reference: "[RFC8492]"}, 0x1f: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "password_salt", Reserved: false, Grease: false, Private: false, Reference: "[RFC8492]"}, 0x20: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "ticket_pinning", Reserved: false, Grease: false, Private: false, Reference: "[RFC8672]"}, 0x21: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "tls_cert_with_extern_psk", Reserved: false, Grease: false, Private: false, Reference: "[RFC8773]"}, 0x22: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "delegated_credentials", Reserved: false, Grease: false, Private: false, Reference: "[draft-ietf-tls-subcerts]"}, 0x23: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "session_ticket", Reserved: false, Grease: false, Private: false, Reference: "[RFC5077][RFC8447]"}, 0x24: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "TLMSP", Reserved: false, Grease: false, Private: false, Reference: "[ETSI TS 103 523-2]"}, 0x25: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "TLMSP_proxying", Reserved: false, Grease: false, Private: false, Reference: "[ETSI TS 103 523-2]"}, 0x26: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "TLMSP_delegate", Reserved: false, Grease: false, Private: false, Reference: "[ETSI TS 103 523-2]"}, 0x27: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "supported_ekt_ciphers", Reserved: false, Grease: false, Private: false, Reference: "[RFC8870]"}, 0x28: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: false, Reference: "[tls-reg-review mailing list]"}, 0x29: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "pre_shared_key", Reserved: false, Grease: false, Private: false, Reference: "[RFC8446]"}, 0x2a: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "early_data", Reserved: false, Grease: false, Private: false, Reference: "[RFC8446]"}, 0x2b: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "supported_versions", Reserved: false, Grease: false, Private: false, Reference: "[RFC8446]"}, 0x2c: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "cookie", Reserved: false, Grease: false, Private: false, Reference: "[RFC8446]"}, 0x2d: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "psk_key_exchange_modes", Reserved: false, Grease: false, Private: false, Reference: "[RFC8446]"}, 0x2e: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: false, Reference: "[tls-reg-review mailing list]"}, 0x2f: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "certificate_authorities", Reserved: false, Grease: false, Private: false, Reference: "[RFC8446]"}, 0x30: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "oid_filters", Reserved: false, Grease: false, Private: false, Reference: "[RFC8446]"}, 0x31: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "post_handshake_auth", Reserved: false, Grease: false, Private: false, Reference: "[RFC8446]"}, 0x32: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "signature_algorithms_cert", Reserved: false, Grease: false, Private: false, Reference: "[RFC8446]"}, 0x33: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "key_share", Reserved: false, Grease: false, Private: false, Reference: "[RFC8446]"}, 0x34: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "transparency_info", Reserved: false, Grease: false, Private: false, Reference: "[RFC9162]"}, 0x35: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "connection_id (deprecated)", Reserved: false, Grease: false, Private: false, Reference: "[RFC-ietf-tls-dtls-connection-id-13]"}, 0x36: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "connection_id", Reserved: false, Grease: false, Private: false, Reference: "[RFC-ietf-tls-dtls-connection-id-13]"}, 0x37: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "external_id_hash", Reserved: false, Grease: false, Private: false, Reference: "[RFC8844]"}, 0x38: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "external_session_id", Reserved: false, Grease: false, Private: false, Reference: "[RFC8844]"}, 0x39: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "quic_transport_parameters", Reserved: false, Grease: false, Private: false, Reference: "[RFC9001]"}, 0x3a: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "ticket_request", Reserved: false, Grease: false, Private: false, Reference: "[RFC-ietf-tls-ticketrequests-07]"}, 0x3b: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "dnssec_chain", Reserved: false, Grease: false, Private: false, Reference: "[RFC9102]"}, 0xa0a: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: true, Private: false, Reference: "[RFC8701]"}, 0x1a1a: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: true, Private: false, Reference: "[RFC8701]"}, 0x2a2a: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: true, Private: false, Reference: "[RFC8701]"}, 0x3a3a: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: true, Private: false, Reference: "[RFC8701]"}, 0x4a4a: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: true, Private: false, Reference: "[RFC8701]"}, 0x5a5a: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: true, Private: false, Reference: "[RFC8701]"}, 0x6a6a: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: true, Private: false, Reference: "[RFC8701]"}, 0x7a7a: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: true, Private: false, Reference: "[RFC8701]"}, 0x8a8a: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: true, Private: false, Reference: "[RFC8701]"}, 0x9a9a: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: true, Private: false, Reference: "[RFC8701]"}, 0xaaaa: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: true, Private: false, Reference: "[RFC8701]"}, 0xbaba: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: true, Private: false, Reference: "[RFC8701]"}, 0xcaca: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: true, Private: false, Reference: "[RFC8701]"}, 0xdada: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: true, Private: false, Reference: "[RFC8701]"}, 0xeaea: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: true, Private: false, Reference: "[RFC8701]"}, 0xfafa: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: true, Private: false, Reference: "[RFC8701]"}, 0xff00: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff01: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "renegotiation_info", Reserved: false, Grease: false, Private: false, Reference: "[RFC5746]"}, 0xff02: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff03: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff04: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff05: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff06: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff07: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff08: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff09: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff0a: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff0b: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff0c: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff0d: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff0e: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff0f: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff10: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff11: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff12: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff13: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff14: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff15: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff16: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff17: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff18: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff19: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff1a: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff1b: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff1c: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff1d: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff1e: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff1f: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff20: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff21: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff22: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff23: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff24: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff25: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff26: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff27: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff28: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff29: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff2a: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff2b: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff2c: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff2d: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff2e: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff2f: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff30: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff31: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff32: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff33: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff34: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff35: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff36: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff37: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff38: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff39: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff3a: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff3b: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff3c: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff3d: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff3e: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff3f: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff40: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff41: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff42: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff43: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff44: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff45: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff46: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff47: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff48: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff49: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff4a: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff4b: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff4c: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff4d: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff4e: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff4f: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff50: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff51: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff52: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff53: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff54: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff55: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff56: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff57: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff58: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff59: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff5a: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff5b: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff5c: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff5d: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff5e: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff5f: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff60: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff61: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff62: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff63: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff64: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff65: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff66: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff67: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff68: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff69: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff6a: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff6b: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff6c: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff6d: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff6e: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff6f: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff70: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff71: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff72: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff73: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff74: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff75: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff76: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff77: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff78: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff79: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff7a: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff7b: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff7c: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff7d: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff7e: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff7f: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff80: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff81: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff82: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff83: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff84: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff85: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff86: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff87: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff88: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff89: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff8a: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff8b: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff8c: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff8d: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff8e: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff8f: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff90: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff91: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff92: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff93: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff94: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff95: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff96: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff97: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff98: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff99: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff9a: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff9b: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff9c: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff9d: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff9e: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xff9f: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffa0: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffa1: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffa2: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffa3: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffa4: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffa5: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffa6: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffa7: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffa8: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffa9: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffaa: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffab: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffac: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffad: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffae: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffaf: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffb0: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffb1: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffb2: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffb3: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffb4: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffb5: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffb6: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffb7: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffb8: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffb9: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffba: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffbb: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffbc: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffbd: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffbe: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffbf: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffc0: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffc1: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffc2: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffc3: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffc4: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffc5: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffc6: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffc7: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffc8: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffc9: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffca: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffcb: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffcc: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffcd: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffce: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffcf: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffd0: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffd1: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffd2: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffd3: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffd4: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffd5: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffd6: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffd7: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffd8: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffd9: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffda: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffdb: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffdc: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffdd: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffde: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffdf: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffe0: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffe1: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffe2: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffe3: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffe4: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffe5: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffe6: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffe7: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffe8: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffe9: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffea: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffeb: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffec: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffed: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffee: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffef: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xfff0: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xfff1: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xfff2: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xfff3: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xfff4: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xfff5: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xfff6: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xfff7: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xfff8: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xfff9: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xfffa: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xfffb: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xfffc: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xfffd: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xfffe: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}, 0xffff: struct {
+	Name      string
+	Reserved  bool
+	Grease    bool
+	Private   bool
+	Reference string
+}{Name: "", Reserved: true, Grease: false, Private: true, Reference: "[RFC8446]"}}
