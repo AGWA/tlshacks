@@ -41,9 +41,11 @@ type ClientHelloInfo struct {
 	Extensions         []Extension         `json:"extensions"`
 
 	Info struct {
-		ServerName *string  `json:"server_name"`
-		SCTs       bool     `json:"scts"`
-		Protocols  []string `json:"protocols"`
+		ServerName     *string  `json:"server_name"`
+		SCTs           bool     `json:"scts"`
+		Protocols      []string `json:"protocols"`
+		JA3String      string   `json:"ja3_string"`
+		JA3Fingerprint string   `json:"ja3_fingerprint"`
 	} `json:"info"`
 }
 
@@ -143,6 +145,9 @@ func UnmarshalClientHello(handshakeBytes []byte) *ClientHelloInfo {
 	if !clientHello.Empty() {
 		return nil
 	}
+
+	info.Info.JA3String = JA3String(info)
+	info.Info.JA3Fingerprint = JA3Fingerprint(info.Info.JA3String)
 
 	return info
 }
