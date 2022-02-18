@@ -1,8 +1,9 @@
 package tlshacks
 
 type CipherSuite struct {
-	Code [2]uint8 `json:"code"`
-	Name string   `json:"name,omitempty"`
+	Code   [2]uint8 `json:"code"`
+	Name   string   `json:"name,omitempty"`
+	Grease bool     `json:"grease,omitempty"`
 }
 
 func (c CipherSuite) CodeUint16() uint16 {
@@ -14,7 +15,8 @@ func MakeCipherSuite(code uint16) CipherSuite {
 	lo := uint8(code)
 
 	return CipherSuite{
-		Code: [2]uint8{hi, lo},
-		Name: CipherSuites[code],
+		Code:   [2]uint8{hi, lo},
+		Name:   CipherSuites[code].Name,
+		Grease: CipherSuites[code].Grease,
 	}
 }

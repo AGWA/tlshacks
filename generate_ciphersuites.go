@@ -27,6 +27,11 @@ package tlshacks
 var CipherSuites = %#v
 `
 
+type CipherSuiteInfo = struct {
+	Name   string
+	Grease bool
+}
+
 func main() {
 	client := &http.Client{Timeout: 1 * time.Minute}
 	resp, err := client.Get(sourceURL)
@@ -45,7 +50,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	ciphersuites := make(map[uint16]string)
+	ciphersuites := make(map[uint16]CipherSuiteInfo)
 
 	for {
 		row, err := reader.Read()
@@ -58,8 +63,12 @@ func main() {
 		var (
 			value = row[0]
 			desc  = row[1]
+			ref   = row[4]
 		)
-		if strings.Contains(desc, "Reserved") || strings.Contains(desc, "Unassigned") {
+		if desc == "Unassigned" {
+			continue
+		}
+		if strings.Contains(desc, "Reserved") && ref != "[RFC8701]" {
 			continue
 		}
 		valueFields := strings.Split(value, ",")
@@ -73,7 +82,11 @@ func main() {
 		}
 
 		code := (uint16(hi) << 8) | uint16(lo)
-		ciphersuites[code] = desc
+		if strings.Contains(desc, "Reserved") && ref == "[RFC8701]" {
+			ciphersuites[code] = CipherSuiteInfo{Grease: true}
+		} else {
+			ciphersuites[code] = CipherSuiteInfo{Name: desc}
+		}
 	}
 
 	if err := os.WriteFile(outputFilename, []byte(fmt.Sprintf(outputFormat, ciphersuites)), 0666); err != nil {
