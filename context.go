@@ -7,6 +7,7 @@ import (
 )
 
 type contextKeyType int
+
 var ClientHelloKey = contextKeyType(0)
 
 func ConnContext(ctx context.Context, conn net.Conn) context.Context {

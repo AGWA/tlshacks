@@ -3,11 +3,11 @@ package main
 import (
 	"crypto/tls"
 	"encoding/json"
+	"golang.org/x/crypto/acme"
 	"log"
 	"net/http"
 	"os"
 	"time"
-	"golang.org/x/crypto/acme"
 
 	"src.agwa.name/go-listener"
 	"src.agwa.name/go-listener/cert"
@@ -39,7 +39,7 @@ func main() {
 
 	tlsConfig := &tls.Config{
 		GetCertificate: cert.GetCertificateAutomatically([]string{hostname}),
-		NextProtos: []string{"h2", "http/1.1", acme.ALPNProto},
+		NextProtos:     []string{"h2", "http/1.1", acme.ALPNProto},
 	}
 	httpServer := &http.Server{
 		ReadTimeout:  5 * time.Second,

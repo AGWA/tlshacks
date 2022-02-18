@@ -17,6 +17,7 @@ type Extension struct {
 type UnknownExtensionData struct {
 	Raw []byte `json:"raw"`
 }
+
 func ParseUnknownExtensionData(data []byte) ExtensionData {
 	return &UnknownExtensionData{
 		Raw: data,
@@ -24,9 +25,10 @@ func ParseUnknownExtensionData(data []byte) ExtensionData {
 }
 
 type EmptyExtensionData struct {
-	Raw      []byte `json:"raw"`
-	Valid    bool   `json:"valid"`
+	Raw   []byte `json:"raw"`
+	Valid bool   `json:"valid"`
 }
+
 func ParseEmptyExtensionData(data []byte) ExtensionData {
 	return &EmptyExtensionData{
 		Raw:   data,
@@ -40,6 +42,7 @@ type ServerNameData struct {
 	Valid    bool   `json:"valid"`
 	HostName string `json:"host_name"`
 }
+
 func ParseServerNameData(raw []byte) ExtensionData {
 	sniData := &ServerNameData{Raw: raw}
 	extData := cryptobyte.String(raw)
@@ -73,10 +76,11 @@ func ParseServerNameData(raw []byte) ExtensionData {
 }
 
 type ALPNData struct {
-	Raw      []byte `json:"raw"`
-	Valid    bool   `json:"valid"`
+	Raw       []byte   `json:"raw"`
+	Valid     bool     `json:"valid"`
 	Protocols []string `json:"protocols"`
 }
+
 func ParseALPNData(raw []byte) ExtensionData {
 	alpnData := &ALPNData{Raw: raw, Protocols: []string{}}
 	extData := cryptobyte.String(raw)
@@ -99,7 +103,7 @@ func ParseALPNData(raw []byte) ExtensionData {
 }
 
 var extensionParsers = map[uint16]func([]byte) ExtensionData{
-	0: ParseServerNameData,
+	0:  ParseServerNameData,
 	16: ParseALPNData,
 	18: ParseEmptyExtensionData,
 	22: ParseEmptyExtensionData,

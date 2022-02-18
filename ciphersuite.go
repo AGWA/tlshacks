@@ -1,8 +1,8 @@
 package tlshacks
 
 type CipherSuite struct {
-	Code  [2]uint8 `json:"code"`
-	Name  string   `json:"name,omitempty"`
+	Code [2]uint8 `json:"code"`
+	Name string   `json:"name,omitempty"`
 }
 
 func (c CipherSuite) CodeUint16() uint16 {

@@ -1,8 +1,8 @@
 package tlshacks
 
 import (
-	"golang.org/x/crypto/cryptobyte"
 	"encoding/json"
+	"golang.org/x/crypto/cryptobyte"
 )
 
 type ProtocolVersion uint16
@@ -24,26 +24,26 @@ type CompressionMethod uint8
 func (m CompressionMethod) MarshalJSON() ([]byte, error) {
 	return json.Marshal(uint16(m))
 	/*
-	return json.Marshal(map[string]interface{}{
-		"code": uint16(m),
-	})
+		return json.Marshal(map[string]interface{}{
+			"code": uint16(m),
+		})
 	*/
 }
 
 type ClientHelloInfo struct {
 	Raw []byte `json:"raw"`
 
-	Version            ProtocolVersion      `json:"version"`
-	Random             []byte      `json:"random"`
-	SessionID          []byte      `json:"session_id"`
-	CipherSuites       []CipherSuite      `json:"cipher_suites"`
-	CompressionMethods []CompressionMethod      `json:"compression_methods"`
-	Extensions         []Extension `json:"extensions"`
+	Version            ProtocolVersion     `json:"version"`
+	Random             []byte              `json:"random"`
+	SessionID          []byte              `json:"session_id"`
+	CipherSuites       []CipherSuite       `json:"cipher_suites"`
+	CompressionMethods []CompressionMethod `json:"compression_methods"`
+	Extensions         []Extension         `json:"extensions"`
 
-	Info struct{
-		ServerName *string      `json:"server_name"`
-		SCTs       bool      `json:"scts"`
-		Protocols  []string  `json:"protocols"`
+	Info struct {
+		ServerName *string  `json:"server_name"`
+		SCTs       bool     `json:"scts"`
+		Protocols  []string `json:"protocols"`
 	} `json:"info"`
 }
 
