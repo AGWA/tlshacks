@@ -1,6 +1,6 @@
 //go:build generate
 
-//go:generate go1.18 run generate_extensions.go
+//go:generate go run generate_extensions.go
 
 package main
 

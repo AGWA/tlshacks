@@ -1,6 +1,6 @@
 //go:build generate
 
-//go:generate go1.18 run generate_ciphersuites.go
+//go:generate go run generate_ciphersuites.go
 
 package main
 
