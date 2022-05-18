@@ -332,13 +332,13 @@ var Extensions = map[uint16]struct {
 	Grease    bool
 	Private   bool
 	Reference string
-}{Name: "connection_id (deprecated)", Reserved: false, Grease: false, Private: false, Reference: "[RFC-ietf-tls-dtls-connection-id-13]"}, 0x36: struct {
+}{Name: "connection_id (deprecated)", Reserved: false, Grease: false, Private: false, Reference: "[RFC9146]"}, 0x36: struct {
 	Name      string
 	Reserved  bool
 	Grease    bool
 	Private   bool
 	Reference string
-}{Name: "connection_id", Reserved: false, Grease: false, Private: false, Reference: "[RFC-ietf-tls-dtls-connection-id-13]"}, 0x37: struct {
+}{Name: "connection_id", Reserved: false, Grease: false, Private: false, Reference: "[RFC9146]"}, 0x37: struct {
 	Name      string
 	Reserved  bool
 	Grease    bool
@@ -362,13 +362,13 @@ var Extensions = map[uint16]struct {
 	Grease    bool
 	Private   bool
 	Reference string
-}{Name: "ticket_request", Reserved: false, Grease: false, Private: false, Reference: "[RFC-ietf-tls-ticketrequests-07]"}, 0x3b: struct {
+}{Name: "ticket_request", Reserved: false, Grease: false, Private: false, Reference: "[RFC9149]"}, 0x3b: struct {
 	Name      string
 	Reserved  bool
 	Grease    bool
 	Private   bool
 	Reference string
-}{Name: "dnssec_chain", Reserved: false, Grease: false, Private: false, Reference: "[RFC9102]"}, 0xa0a: struct {
+}{Name: "dnssec_chain", Reserved: false, Grease: false, Private: false, Reference: "[RFC9102][RFC Errata 6860]"}, 0xa0a: struct {
 	Name      string
 	Reserved  bool
 	Grease    bool
