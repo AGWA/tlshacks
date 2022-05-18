@@ -23,8 +23,6 @@ func handler(w http.ResponseWriter, req *http.Request) {
 	clientHello := req.Context().Value(tlshacks.ClientHelloKey).([]byte)
 	info := tlshacks.UnmarshalClientHello(clientHello)
 
-	log.Printf("%s %q %#v", req.RemoteAddr, req.Header.Get("User-Agent"), info)
-
 	w.Header().Set("Content-Type", "application/json")
 	encoder := json.NewEncoder(w)
 	encoder.SetIndent("", "    ")
