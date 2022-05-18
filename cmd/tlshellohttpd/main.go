@@ -61,8 +61,8 @@ func main() {
 	)
 
 	tlsConfig := &tls.Config{
-		GetCertificate: cert.GetCertificateAutomatically([]string{hostname}),
-		NextProtos:     []string{"h2", "http/1.1", acme.ALPNProto},
+		GetCertificate:         cert.GetCertificateAutomatically([]string{hostname}),
+		NextProtos:             []string{"h2", "http/1.1", acme.ALPNProto},
 		SessionTicketsDisabled: true,
 	}
 	httpServer := &http.Server{
