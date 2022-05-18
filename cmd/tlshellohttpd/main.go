@@ -32,6 +32,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 
 	"src.agwa.name/go-listener"
@@ -56,15 +57,22 @@ func handler(w http.ResponseWriter, req *http.Request) {
 
 func main() {
 	var (
-		hostname    = os.Args[1]
-		listenerArg = os.Args[2]
+		hostnameOrCert = os.Args[1]
+		listenerArg    = os.Args[2]
 	)
 
 	tlsConfig := &tls.Config{
-		GetCertificate:         cert.GetCertificateAutomatically([]string{hostname}),
 		NextProtos:             []string{"h2", "http/1.1", acme.ALPNProto},
 		SessionTicketsDisabled: true,
 	}
+	if strings.HasPrefix(hostnameOrCert, "/") {
+		// assume it's a path to a certificate
+		tlsConfig.GetCertificate = cert.GetCertificateFromFile(hostnameOrCert)
+	} else {
+		// assume it's a hostname
+		tlsConfig.GetCertificate = cert.GetCertificateAutomatically([]string{hostnameOrCert})
+	}
+
 	httpServer := &http.Server{
 		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 10 * time.Second,
