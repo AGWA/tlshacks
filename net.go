@@ -27,6 +27,7 @@ package tlshacks
 
 import (
 	"bytes"
+	"errors"
 	"io"
 	"net"
 )
@@ -54,19 +55,98 @@ func NewConn(conn net.Conn) (*Conn, error) {
 }
 
 type listener struct {
-	net.Listener
-}
-
-func (l *listener) Accept() (net.Conn, error) {
-	conn, err := l.Listener.Accept()
-	if err != nil {
-		return nil, err
-	}
-	return NewConn(conn)
+	inner  net.Listener
+	conns  chan net.Conn
+	errors chan error
+	done   chan struct{}
 }
 
 func NewListener(inner net.Listener) net.Listener {
-	return &listener{
-		Listener: inner,
+	listener := &listener{
+		inner:  inner,
+		conns:  make(chan net.Conn),
+		errors: make(chan error),
+		done:   make(chan struct{}),
+	}
+	go listener.handleAccepts()
+	return listener
+}
+
+func (listener *listener) Accept() (net.Conn, error) {
+	select {
+	case conn := <-listener.conns:
+		return conn, nil
+	case err := <-listener.errors:
+		return nil, err
+	case <-listener.done:
+		return nil, errors.New("Listener is closed")
 	}
 }
+
+func (listener *listener) Close() error {
+	close(listener.done)
+	return listener.inner.Close()
+}
+
+func (listener *listener) Addr() net.Addr {
+	return listener.inner.Addr()
+}
+
+func (listener *listener) handleAccepts() {
+	for {
+		conn, err := listener.inner.Accept()
+		if err != nil {
+			if listener.sendError(err) {
+				continue
+			} else {
+				break
+			}
+		}
+		go listener.handleConnection(conn)
+	}
+}
+
+func (listener *listener) handleConnection(innerConn net.Conn) {
+	conn, err := NewConn(innerConn)
+	if err != nil {
+		innerConn.Close()
+		listener.sendError(&acceptError{error: err, temporary: true})
+		return
+	}
+	if !listener.sendConn(conn) {
+		conn.Close()
+	}
+}
+
+func (listener *listener) sendError(err error) bool {
+	select {
+	case listener.errors <- err:
+		return true
+	case <-listener.done:
+		return false
+	}
+}
+
+func (listener *listener) sendConn(conn net.Conn) bool {
+	select {
+	case listener.conns <- conn:
+		return true
+	case <-listener.done:
+		return false
+	}
+}
+
+type acceptError struct {
+	error
+	temporary bool
+}
+
+func (err *acceptError) Temporary() bool {
+	return err.temporary
+}
+
+func (err *acceptError) Timeout() bool {
+	return false
+}
+
+var _ net.Error = (*acceptError)(nil) // Cause compile error if acceptError does not implement net.Error interface
