@@ -30,6 +30,7 @@ import (
 	"errors"
 	"io"
 	"net"
+	"time"
 )
 
 type Conn struct {
@@ -43,8 +44,14 @@ func (conn *Conn) Read(p []byte) (int, error) { return conn.reader.Read(p) }
 
 func NewConn(conn net.Conn) (*Conn, error) {
 	peekedBytes := new(bytes.Buffer)
+	if err := conn.SetReadDeadline(time.Now().Add(5 * time.Second)); err != nil {
+		return nil, err
+	}
 	clientHello, err := NewHandshakeReader(io.TeeReader(conn, peekedBytes)).ReadMessage()
 	if err != nil {
+		return nil, err
+	}
+	if err := conn.SetReadDeadline(time.Time{}); err != nil {
 		return nil, err
 	}
 	return &Conn{
