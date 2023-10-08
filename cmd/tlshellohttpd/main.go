@@ -80,6 +80,7 @@ func main() {
 		Handler:      http.HandlerFunc(handler),
 		ConnContext:  tlshacks.ConnContext,
 	}
+	httpServer.SetKeepAlivesEnabled(false)
 
 	streamListener, err := listener.Open(listenerArg)
 	if err != nil {
