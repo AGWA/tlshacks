@@ -32,6 +32,8 @@ import (
 	"src.agwa.name/go-listener/cert"
 )
 
+var verbose = false
+
 func parseCertString(str string) cert.GetCertificateFunc {
 	if strings.HasPrefix(str, "/") {
 		// assume it's a path to a certificate
@@ -55,6 +57,7 @@ func main() {
 	flag.StringVar(&clienthelloConfig.listen, "clienthello-listen", "", "Socket for clienthello to listen on")
 	flag.StringVar(&clienthelloResumptionConfig.cert, "clienthello-resumption-cert", "", "Hostname or certificate file for clienthello with resumption")
 	flag.StringVar(&clienthelloResumptionConfig.listen, "clienthello-resumption-listen", "", "Socket for clienthello with resumption to listen on")
+	flag.BoolVar(&verbose, "verbose", false, "Enable verbose logging")
 	flag.Parse()
 
 	if clientcertConfig.listen != "" {

@@ -28,6 +28,8 @@ package main
 import (
 	"crypto/sha256"
 	"crypto/tls"
+	"crypto/x509"
+	"encoding/hex"
 	"encoding/pem"
 	"fmt"
 	"golang.org/x/crypto/acme"
@@ -38,6 +40,15 @@ import (
 	"src.agwa.name/go-listener"
 )
 
+func fingerprints(certs []*x509.Certificate) []string {
+	f := make([]string, len(certs))
+	for i, cert := range certs {
+		fp := sha256.Sum256(cert.Raw)
+		f[i] = hex.EncodeToString(fp[:])
+	}
+	return f
+}
+
 func handleClientcert(w http.ResponseWriter, req *http.Request) {
 	if req.URL.Path != "/" {
 		http.NotFound(w, req)
@@ -45,6 +56,10 @@ func handleClientcert(w http.ResponseWriter, req *http.Request) {
 	}
 
 	certs := req.TLS.PeerCertificates
+
+	if verbose {
+		log.Printf("clientcert: %v", fingerprints(certs))
+	}
 
 	w.Header().Set("Content-Type", "text/plain")
 	for _, cert := range certs {
